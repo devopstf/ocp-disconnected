@@ -1,16 +1,8 @@
 #!/bin/bash
 
-if [ $# -lt 2 ]; then
-  echo 1>&2 "Usage: retag.sh <path/to/file/to/be/read> <rh-repository-name>"
-  exit 2
-elif [ $# -gt 2 ]; then
-  echo 1>&2 "[ERROR]: too many arguments"
-  exit 2
-fi
-
-filename=$1
+filename=./openshift3-images
 filelines=`cat $filename`
-registry="registry.redhat.io/$2"
+registry="registry.redhat.io"
 major="v3.11"
 minor="16"
 local="localhost:5000"
@@ -27,4 +19,7 @@ for line in $filelines ; do
     sh -c "docker push $local/$line:$major.$minor" && \
     sh -c "docker tag $registry/$line:$tag $local/$line:$major" && \
     sh -c "docker push $local/$line:$major" && \
+    sh -c "docker rmi $registry/$line:$tag" && \
+    sh -c "docker rmi $registry/$line:$major" && \
+    sh -c "docker rmi $registry/$line:$major.$minor"
 done

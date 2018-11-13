@@ -1,0 +1,126 @@
+- hosts: localhost
+  vars:
+    major: v3.11
+    minor: 16
+    registry: registry.redhat.io
+  vars_prompt:
+    - name: "user"
+      prompt: "Docker Registry Username?"
+    - name: "pass"
+      prompt: "Docker Registry Password?"
+  tasks:
+  - name: Log into RH private registry and force re-authorization
+    docker_login:
+      registry: "{{ registry }}"
+      username: "{{ user }}"
+      password: "{{ pass }}"
+      reauthorize: yes
+
+  - name: pull builder images
+    docker_image:
+      name: "{{ registry}}/{{ item }}:{{ major }}.{{ minor }}"
+    with_items:
+      - jboss-amq-6/amq63-openshift
+      - jboss-datagrid-7/datagrid71-openshift
+      - jboss-datagrid-7/datagrid71-client-openshift
+      - jboss-datavirt-6/datavirt63-openshift
+      - jboss-datavirt-6/datavirt63-driver-openshift
+      - jboss-decisionserver-6/decisionserver64-openshift
+      - jboss-processserver-6/processserver64-openshift
+      - jboss-eap-6/eap64-openshift
+      - jboss-eap-7/eap70-openshift
+      - jboss-webserver-3/webserver31-tomcat7-openshift
+      - jboss-webserver-3/webserver31-tomcat8-openshift
+      - openshift3/jenkins-2-rhel7
+      - openshift3/jenkins-agent-maven-35-rhel7
+      - openshift3/jenkins-agent-nodejs-8-rhel7
+      - openshift3/jenkins-slave-base-rhel7
+      - openshift3/jenkins-slave-maven-rhel7
+      - openshift3/jenkins-slave-nodejs-rhel7
+      - rhscl/mongodb-32-rhel7
+      - rhscl/mysql-57-rhel7
+      - rhscl/perl-524-rhel7
+      - rhscl/php-56-rhel7
+      - rhscl/postgresql-95-rhel7
+      - rhscl/python-35-rhel7
+      - redhat-sso-7/sso70-openshift
+      - rhscl/ruby-24-rhel7
+      - redhat-openjdk-18/openjdk18-openshift
+      - redhat-sso-7/sso71-openshift
+      - rhscl/nodejs-6-rhel7
+      - rhscl/mariadb-101-rhel7
+
+  - name: Tag builder images with vX.Y.Z version label and push to local registry
+    docker_image:
+      name: "{{ registry }}/{{ item }}"
+      repository: localhost:5000/{{ item }}
+      tag: {{ major }}.{{ minor }}
+      push: yes
+    with_items:
+      - jboss-amq-6/amq63-openshift
+      - jboss-datagrid-7/datagrid71-openshift
+      - jboss-datagrid-7/datagrid71-client-openshift
+      - jboss-datavirt-6/datavirt63-openshift
+      - jboss-datavirt-6/datavirt63-driver-openshift
+      - jboss-decisionserver-6/decisionserver64-openshift
+      - jboss-processserver-6/processserver64-openshift
+      - jboss-eap-6/eap64-openshift
+      - jboss-eap-7/eap70-openshift
+      - jboss-webserver-3/webserver31-tomcat7-openshift
+      - jboss-webserver-3/webserver31-tomcat8-openshift
+      - openshift3/jenkins-2-rhel7
+      - openshift3/jenkins-agent-maven-35-rhel7
+      - openshift3/jenkins-agent-nodejs-8-rhel7
+      - openshift3/jenkins-slave-base-rhel7
+      - openshift3/jenkins-slave-maven-rhel7
+      - openshift3/jenkins-slave-nodejs-rhel7
+      - rhscl/mongodb-32-rhel7
+      - rhscl/mysql-57-rhel7
+      - rhscl/perl-524-rhel7
+      - rhscl/php-56-rhel7
+      - rhscl/postgresql-95-rhel7
+      - rhscl/python-35-rhel7
+      - redhat-sso-7/sso70-openshift
+      - rhscl/ruby-24-rhel7
+      - redhat-openjdk-18/openjdk18-openshift
+      - redhat-sso-7/sso71-openshift
+      - rhscl/nodejs-6-rhel7
+      - rhscl/mariadb-101-rhel7
+
+  - name: Remove images
+    docker_image:
+      state: absent
+      name: "{{ registry }}/{{ item }}"
+      tag: "{{ major }}.{{ minor }}"
+    with_items:
+      - jboss-amq-6/amq63-openshift
+      - jboss-datagrid-7/datagrid71-openshift
+      - jboss-datagrid-7/datagrid71-client-openshift
+      - jboss-datavirt-6/datavirt63-openshift
+      - jboss-datavirt-6/datavirt63-driver-openshift
+      - jboss-decisionserver-6/decisionserver64-openshift
+      - jboss-processserver-6/processserver64-openshift
+      - jboss-eap-6/eap64-openshift
+      - jboss-eap-7/eap70-openshift
+      - jboss-webserver-3/webserver31-tomcat7-openshift
+      - jboss-webserver-3/webserver31-tomcat8-openshift
+      - openshift3/jenkins-2-rhel7
+      - openshift3/jenkins-agent-maven-35-rhel7
+      - openshift3/jenkins-agent-nodejs-8-rhel7
+      - openshift3/jenkins-slave-base-rhel7
+      - openshift3/jenkins-slave-maven-rhel7
+      - openshift3/jenkins-slave-nodejs-rhel7
+      - rhscl/mongodb-32-rhel7
+      - rhscl/mysql-57-rhel7
+      - rhscl/perl-524-rhel7
+      - rhscl/php-56-rhel7
+      - rhscl/postgresql-95-rhel7
+      - rhscl/python-35-rhel7
+      - redhat-sso-7/sso70-openshift
+      - rhscl/ruby-24-rhel7
+      - redhat-openjdk-18/openjdk18-openshift
+      - redhat-sso-7/sso71-openshift
+      - rhscl/nodejs-6-rhel7
+      - rhscl/mariadb-101-rhel7
+
+...

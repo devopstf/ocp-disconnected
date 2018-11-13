@@ -31,4 +31,20 @@
     with_items:
       - nginx
 
+  - name: Remove images
+    docker_image:
+      state: absent
+      name: "{{ registry }}/{{ item }}"
+      tag: "{{ major }}.{{ minor }}"
+    with_items:
+      - nginx
+
+  - name: Remove images
+    docker_image:
+      state: absent
+      name: "{{ registry }}/{{ item }}"
+      tag: "{{ major }}"
+    with_items:
+      - nginx
+
 ...

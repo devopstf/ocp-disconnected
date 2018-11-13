@@ -1,0 +1,90 @@
+- hosts: localhost
+  vars:
+    major: v3.11
+    minor: 16
+    registry: registry.redhat.io
+  vars_prompt:
+    - name: "user"
+      prompt: "Docker Registry Username?"
+    - name: "pass"
+      prompt: "Docker Registry Password?"
+  tasks:
+  - name: Log into RH private registry and force re-authorization
+    docker_login:
+      registry: "{{ registry }}"
+      username: "{{ user }}"
+      password: "{{ pass }}"
+      reauthorize: yes
+
+  - name: pull optional components images for cfme and glusterfs with the latest tag
+    docker_image:
+      name: "{{ registry}}/{{ item }}"
+    with_items:
+      - cloudforms46/cfme-openshift-postgresql
+      - cloudforms46/cfme-openshift-memcached
+      - cloudforms46/cfme-openshift-app-ui
+      - cloudforms46/cfme-openshift-app
+      - cloudforms46/cfme-openshift-embedded-ansible
+      - cloudforms46/cfme-openshift-httpd
+      - cloudforms46/cfme-httpd-configmap-generator
+      - rhgs3/rhgs-server-rhel7
+      - rhgs3/rhgs-volmanager-rhel7
+      - rhgs3/rhgs-gluster-block-prov-rhel7
+      - rhgs3/rhgs-s3-server-rhel7
+
+  - name: Tag with vX.Y.Z version label and push to local registry
+    docker_image:
+      name: "{{ registry }}/{{ item }}"
+      repository: localhost:5000/{{ item }}
+      tag: {{ major }}.{{ minor }}
+      push: yes
+    with_items:
+      - cloudforms46/cfme-openshift-postgresql
+      - cloudforms46/cfme-openshift-memcached
+      - cloudforms46/cfme-openshift-app-ui
+      - cloudforms46/cfme-openshift-app
+      - cloudforms46/cfme-openshift-embedded-ansible
+      - cloudforms46/cfme-openshift-httpd
+      - cloudforms46/cfme-httpd-configmap-generator
+      - rhgs3/rhgs-server-rhel7
+      - rhgs3/rhgs-volmanager-rhel7
+      - rhgs3/rhgs-gluster-block-prov-rhel7
+      - rhgs3/rhgs-s3-server-rhel7
+
+  - name: Remove images
+    docker_image:
+      state: absent
+      name: "{{ registry }}/{{ item }}"
+      tag: latest
+    with_items:
+      - cloudforms46/cfme-openshift-postgresql
+      - cloudforms46/cfme-openshift-memcached
+      - cloudforms46/cfme-openshift-app-ui
+      - cloudforms46/cfme-openshift-app
+      - cloudforms46/cfme-openshift-embedded-ansible
+      - cloudforms46/cfme-openshift-httpd
+      - cloudforms46/cfme-httpd-configmap-generator
+      - rhgs3/rhgs-server-rhel7
+      - rhgs3/rhgs-volmanager-rhel7
+      - rhgs3/rhgs-gluster-block-prov-rhel7
+      - rhgs3/rhgs-s3-server-rhel7
+
+  - name: Remove images
+    docker_image:
+      state: absent
+      name: "{{ registry }}/{{ item }}"
+      tag: {{ major }}.{{ minor }}
+    with_items:
+      - cloudforms46/cfme-openshift-postgresql
+      - cloudforms46/cfme-openshift-memcached
+      - cloudforms46/cfme-openshift-app-ui
+      - cloudforms46/cfme-openshift-app
+      - cloudforms46/cfme-openshift-embedded-ansible
+      - cloudforms46/cfme-openshift-httpd
+      - cloudforms46/cfme-httpd-configmap-generator
+      - rhgs3/rhgs-server-rhel7
+      - rhgs3/rhgs-volmanager-rhel7
+      - rhgs3/rhgs-gluster-block-prov-rhel7
+      - rhgs3/rhgs-s3-server-rhel7
+
+...
