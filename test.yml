@@ -6,7 +6,19 @@
     major: 1.14
     minor: 1
     registry: registry.hub.docker.com/library
+  vars_prompt:
+    - name: "user"
+      prompt: "Docker Registry Username?"
+    - name: "pass"
+      prompt: "Docker Registry Password?"
   tasks:
+  - name: Log into Docker registry and force re-authorization
+    docker_login:
+      registry: "{{ registry }}"
+      username: "{{ user }}"
+      password: "{{ pass }}"
+      reauthorize: yes
+
   - name: pull nginx images
     docker_image:
       name: "{{ registry }}/{{ item }}:{{ major }}.{{ minor }}"
