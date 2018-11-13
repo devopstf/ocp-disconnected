@@ -1,0 +1,34 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    major: 1.14
+    minor: 1
+    registry: registry.hub.docker.com/library
+  tasks:
+  - name: pull nginx images
+    docker_image:
+      name: "{{ registry }}/{{ item }}:{{ major }}.{{ minor }}"
+    with_items:
+      - nginx
+
+  - name: Tag with major version and push to local registry
+    docker_image:
+      name: "{{ registry }}/{{ item }}"
+      repository: localhost:5000/{{ item }}
+      tag: "{{ major }}"
+      push: yes
+    with_items:
+      - nginx
+
+  - name: Tag with X.Y.Z version and push to local registry
+    docker_image:
+      name: "{{ registry }}/{{ item }}"
+      repository: localhost:5000/{{ item }}
+      tag: "{{ major }}.{{ minor }}"
+      push: yes
+    with_items:
+      - nginx
+
+...

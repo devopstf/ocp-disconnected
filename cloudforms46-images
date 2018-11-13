@@ -1,0 +1,7 @@
+cfme-openshift-postgresql
+cfme-openshift-memcached
+cfme-openshift-app-ui
+cfme-openshift-app
+cfme-openshift-embedded-ansible
+cfme-openshift-httpd
+cfme-httpd-configmap-generator
