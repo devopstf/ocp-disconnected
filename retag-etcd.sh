@@ -17,6 +17,5 @@ done
 for line in $filelines ; do
     sh -c "docker tag $registry/$line:$tag $local/$line:$major.$minor" && \
     sh -c "docker push $local/$line:$major.$minor" && \
-    sh -c "docker rmi $registry/$line:$tag" && \
-    sh -c "docker rmi $registry/$line:$major.$minor"
+    sh -c "docker rmi $registry/$line:$tag"
 done
