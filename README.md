@@ -7,10 +7,10 @@ within RH documentation, to an internal docker registry the machines within your
 
 Images required within the documentation are splitted into three (or four) different groups:
 
-* Required images (tagged with the selected version label, i.e. ``v3.11.zz``) for infrastructure components
-* Required images (``latest`` tag) for optional components (CFME, and GlusterFS)
-* Builder images (tagged with the selected version label, i.e. ``v3.11.zz``) for ``s2i``.
-* ``etcd`` image from RHEL 7 repos, named ``registry.redhat.io/rhel7/etcd:3.2.22``.
+* Required images (tagged with the selected version label, i.e. ``v3.11.zz``) for infrastructure components, and optional components within ``openshift3`` repository. They are listed within ``openshift3-images`` file.
+* Required images (``latest`` tag) for optional components (CFME, and GlusterFS). They are listed within ``latest-images`` file.
+* Builder images (tagged with the selected version label, i.e. ``v3.11.zz``) for ``s2i``. They are listed within ``builder-images`` file.
+* ``etcd`` image from RHEL 7 repos, named ``registry.redhat.io/rhel7/etcd:3.2.22``. It has been listed within ``etcd-images`` file.
 
 # Pre-requisites
 
@@ -46,5 +46,5 @@ You can find additional playbooks named ``builder-images.yml``, and ``latest-ima
 # Shell script Usage
 
 If you've been able to use ``docker save`` and ``docker load`` for bundling images into ``.tar`` balls,
-and transferring them to bastion host machine, you can use ``retag.sh`` script for having them retagged,
-and pushed to local docker registry running in ``localhost:5000``.
+and transferring them to bastion host machine, you can use ``retag-xxxxxxxxxx.sh`` scripts for having them retagged,
+pushed to local docker registry running in ``localhost:5000``, and removed.
