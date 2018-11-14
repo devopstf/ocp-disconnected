@@ -5,7 +5,7 @@ The files in this repo are intended to be used as part of a disconnected install
 You can find here an ansible playbook for pulling, retagging, and pushing the images you need, as described
 within RH documentation, to an internal docker registry the machines within your cluster(s) can reach.
 
-Images required within the documentation are splitted into three (or four) different groups:
+Images required within the documentation are splitted into different groups:
 
 * Required images (tagged with the selected version label, i.e. ``v3.11.zz``) for infrastructure components, and optional components within ``openshift3`` repository. They are listed within ``openshift3-images`` file.
 * Required images (``latest`` tag) for optional components (CFME, and GlusterFS). They are listed within ``latest-images`` file.
@@ -43,8 +43,10 @@ You can find additional playbooks named ``builder-images.yml``, and ``latest-ima
 
 4. Pulled images will be removed.
 
-# Shell script Usage
+# Shell scripts Usage
 
 If you've been able to use ``docker save`` and ``docker load`` for bundling images into ``.tar`` balls,
 and transferring them to bastion host machine, you can use ``retag-xxxxxxxxxx.sh`` scripts for having them retagged,
 pushed to local docker registry running in ``localhost:5000``, and removed.
+
+We are assuming that all the downloaded images are tagged as ``latest``.

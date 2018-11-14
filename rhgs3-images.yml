@@ -20,13 +20,6 @@
     docker_image:
       name: "{{ registry}}/{{ item }}"
     with_items:
-      - cloudforms46/cfme-openshift-postgresql
-      - cloudforms46/cfme-openshift-memcached
-      - cloudforms46/cfme-openshift-app-ui
-      - cloudforms46/cfme-openshift-app
-      - cloudforms46/cfme-openshift-embedded-ansible
-      - cloudforms46/cfme-openshift-httpd
-      - cloudforms46/cfme-httpd-configmap-generator
       - rhgs3/rhgs-server-rhel7
       - rhgs3/rhgs-volmanager-rhel7
       - rhgs3/rhgs-gluster-block-prov-rhel7
@@ -39,13 +32,6 @@
       tag: {{ major }}.{{ minor }}
       push: yes
     with_items:
-      - cloudforms46/cfme-openshift-postgresql
-      - cloudforms46/cfme-openshift-memcached
-      - cloudforms46/cfme-openshift-app-ui
-      - cloudforms46/cfme-openshift-app
-      - cloudforms46/cfme-openshift-embedded-ansible
-      - cloudforms46/cfme-openshift-httpd
-      - cloudforms46/cfme-httpd-configmap-generator
       - rhgs3/rhgs-server-rhel7
       - rhgs3/rhgs-volmanager-rhel7
       - rhgs3/rhgs-gluster-block-prov-rhel7
@@ -57,13 +43,6 @@
       name: "{{ registry }}/{{ item }}"
       tag: latest
     with_items:
-      - cloudforms46/cfme-openshift-postgresql
-      - cloudforms46/cfme-openshift-memcached
-      - cloudforms46/cfme-openshift-app-ui
-      - cloudforms46/cfme-openshift-app
-      - cloudforms46/cfme-openshift-embedded-ansible
-      - cloudforms46/cfme-openshift-httpd
-      - cloudforms46/cfme-httpd-configmap-generator
       - rhgs3/rhgs-server-rhel7
       - rhgs3/rhgs-volmanager-rhel7
       - rhgs3/rhgs-gluster-block-prov-rhel7
@@ -75,13 +54,6 @@
       name: "{{ registry }}/{{ item }}"
       tag: {{ major }}.{{ minor }}
     with_items:
-      - cloudforms46/cfme-openshift-postgresql
-      - cloudforms46/cfme-openshift-memcached
-      - cloudforms46/cfme-openshift-app-ui
-      - cloudforms46/cfme-openshift-app
-      - cloudforms46/cfme-openshift-embedded-ansible
-      - cloudforms46/cfme-openshift-httpd
-      - cloudforms46/cfme-httpd-configmap-generator
       - rhgs3/rhgs-server-rhel7
       - rhgs3/rhgs-volmanager-rhel7
       - rhgs3/rhgs-gluster-block-prov-rhel7
