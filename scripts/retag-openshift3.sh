@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./openshift3-images
+filename=../images/openshift3-images
 filelines=`cat $filename`
 registry="registry.redhat.io"
 major="v3.11"

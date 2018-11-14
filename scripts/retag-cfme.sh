@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./cfme-images
+filename=../images/cfme-images
 filelines=`cat $filename`
 registry="registry.redhat.io"
 local="localhost:5000"

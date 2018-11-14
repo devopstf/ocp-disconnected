@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./etcd-images
+filename=../images/etcd-images
 filelines=`cat $filename`
 registry="registry.redhat.io"
 major="3.2"

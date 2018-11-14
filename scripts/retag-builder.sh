@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./builder-images
+filename=../images/builder-images
 filelines=`cat $filename`
 registry="registry.redhat.io"
 major="v3.11"

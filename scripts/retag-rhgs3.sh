@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./rhgs3-images
+filename=../images/rhgs3-images
 filelines=`cat $filename`
 registry="registry.redhat.io"
 local="localhost:5000"
