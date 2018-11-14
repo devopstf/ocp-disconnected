@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=./test-images
+filename=../images/test-images
 filelines=`cat $filename`
 registry="registry.hub.docker.com/library"
 major="1.14"
