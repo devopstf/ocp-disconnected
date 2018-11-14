@@ -17,14 +17,14 @@ done
 
 for line in $filelines ; do
     echo "Re-Tagging $line:$tag to $line:$major:$minor to local registry" && \
-    sh -c "docker tag $registry/$line:$tag $local/$line:$major.$minor" && \
+    docker tag $registry/$line:$tag $local/$line:$major.$minor && \
     echo "Pushing $line:$major.$minor to local registry" && \
-    sh -c "docker push $local/$line:$major.$minor" && \
+    docker push $local/$line:$major.$minor && \
     echo "Re-Tagging $line:$tag to $line:$major for local registry" && \
-    sh -c "docker tag $registry/$line:$tag $local/$line:$major" && \
+    docker tag $registry/$line:$tag $local/$line:$major && \
     echo "Pushing $line:$major to local registry" && \
-    sh -c "docker push $local/$line:$major" && \
+    docker push $local/$line:$major && \
     echo "Removing $line:$tag image" && \
-    sh -c "docker rmi $registry/$line:$tag" && \
+    docker rmi $registry/$line:$tag && \
     echo "I'm Done!"
 done
