@@ -1,7 +1,6 @@
 - hosts: localhost
   vars:
-    major: v3.11
-    minor: 16
+    version_tag: {{ image_version.stdout }}
     registry: registry.redhat.io
   vars_prompt:
     - name: "user"
@@ -25,11 +24,15 @@
       - rhgs3/rhgs-gluster-block-prov-rhel7
       - rhgs3/rhgs-s3-server-rhel7
 
+   - name: Registering version tag
+     shell: echo $(docker inspect $registry/$line | grep -m1 version | awk '{print $2}' | sed -e 's/^"//' -e 's/"$//')
+     register: image_version
+
   - name: Tag with vX.Y.Z version label and push to local registry
     docker_image:
       name: "{{ registry }}/{{ item }}"
       repository: localhost:5000/{{ item }}
-      tag: {{ major }}.{{ minor }}
+      tag: "{{ version_tag }}"
       push: yes
     with_items:
       - rhgs3/rhgs-server-rhel7
@@ -52,7 +55,7 @@
     docker_image:
       state: absent
       name: "{{ registry }}/{{ item }}"
-      tag: {{ major }}.{{ minor }}
+      tag: "{{ version_tag }}"
     with_items:
       - rhgs3/rhgs-server-rhel7
       - rhgs3/rhgs-volmanager-rhel7
