@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars:
+    command_output: "{{ command_output_full.stdout }}"
+  tasks:
+    - name: Create variable from command
+      command: "echo Hello"
+      register: command_output_full
+    - debug: msg="{{ command_output }}"
+...
