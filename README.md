@@ -57,3 +57,15 @@ We are assuming that:
 * We are considering an air-gapped scenario for deploying an OCP 3.11 cluster.
 * We are using a linux box with docker installed, and a local docker registry up & running.
 * Our user on such a host machine has sudo/root privileges.
+
+# Tests
+
+We are including a ``tests`` folder where you can find:
+
+* A simple Ansible playbook for testing the same tasks from the ones includend within the ``ansible`` folder using an lighter ``nginx`` image from _Docker Hub_ public registry.
+* A shell script resembling the procedure coded into the ``scripts`` folder.
+* A simple test for validating the way we are using for populating Ansible vars from tasks' results.
+
+# Development
+
+The Ansible playbooks should be refined, and leveraged for becoming a consistent, tested and reliable Ansible role to be provided for any disconnected OCP cluster deployment.
